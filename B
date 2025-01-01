@@ -1,1 +1,1 @@
-loadstring(game:HttpGet('https://raw.githubusercontent.com/Generallua/Obfuscate/refs/heads/main/7'))()execute("Script20")
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Generallua/Obfuscate/refs/heads/main/8'))()
