@@ -116,5 +116,4 @@ end
 local scriptText = "loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/Vehicle%20Fly%20Gui'))()"
 local convertedText = convertText(scriptText)
 
--- แสดงผล
-print(convertedText)
+setclipboard(convertedText)
