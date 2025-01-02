@@ -1,6 +1,6 @@
 local Symbols = {
    ["G-Code"] = {
-      ["\n"] = "", --for lua character [line feed]
+      ["\n"] = "",
       [" "] = "",
       ["!"] = "",
       ['"'] = '',
