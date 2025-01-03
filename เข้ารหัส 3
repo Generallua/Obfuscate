@@ -1,0 +1,191 @@
+local Symbols = {
+   ["G-Code"] = {
+      ["\n"] = "🎓",
+      [" "] = "⭐",
+      ["!"] = "😎",
+      ['"'] = '🧐',
+      ["#"] = "😕",
+      ["$"] = "😂",
+      ["%"] = "☠️",
+      ["&"] = "✅",
+      ["'"] = "☄️",
+      ["("] = "😤",
+      [")"] = "📟",
+      ["*"] = "😭",
+      ["+"] = "🤣",
+      [","] = "🥰",
+      ["-"] = "😘",
+      ["."] = "😃",
+      ["/"] = "⚜️",
+      ["0"] = "🌐",
+      ["1"] = "🌕",
+      ["2"] = "🌓",
+      ["3"] = "📠",
+      ["4"] = "😷",
+      ["5"] = "😮‍💨",
+      ["6"] = "😗",
+      ["7"] = "😍",
+      ["8"] = "👐",
+      ["9"] = "🤳",
+      [":"] = "🧗",
+      [";"] = "😵",
+      ["<"] = "🚵",
+      ["="] = "👨‍❤️‍💋‍👨",
+      [">"] = "🤹",
+      ["?"] = "🐛",
+      ["@"] = "🌒",
+      ["A"] = "🦹",
+      ["B"] = "🪱",
+      ["C"] = "🎂",
+      ["D"] = "🚋",
+      ["E"] = "🍉",
+      ["F"] = "🍿",
+      ["G"] = "🥨",
+      ["H"] = "🦞",
+      ["I"] = "🐆",
+      ["J"] = "🎱",
+      ["K"] = "🎲",
+      ["L"] = "🎸",
+      ["M"] = "🐽",
+      ["N"] = "⛽",
+      ["O"] = "📑",
+      ["P"] = "🥁",
+      ["Q"] = "🪮",
+      ["R"] = "🎫",
+      ["S"] = "☢️",
+      ["T"] = "📀",
+      ["U"] = "🗡️",
+      ["V"] = "🔪",
+      ["W"] = "🔌",
+      ["X"] = "⚡",
+      ["Y"] = "⚽",
+      ["Z"] = "⚓",
+      ["["] = "🪀",
+      ["\\"] = "🫘",
+      ["]"] = "🪽",
+      ["^"] = "🏯",
+      ["_"] = "🖥️",
+      ["`"] = "🍸",
+      ["a"] = "🪡",
+      ["b"] = "🛶",
+      ["c"] = "👑",
+      ["d"] = "🧑‍🤝‍🧑",
+      ["e"] = "🚧",
+      ["f"] = "🗞️",
+      ["g"] = "🧱",
+      ["h"] = "🚪",
+      ["i"] = "🟠",
+      ["j"] = "🦇",
+      ["k"] = "🛺",
+      ["l"] = "📱",
+      ["m"] = "📛",
+      ["n"] = "🕠",
+      ["o"] = "🧭",
+      ["p"] = "🎀",
+      ["q"] = "🍓",
+      ["r"] = "🫚",
+      ["s"] = "🍀",
+      ["t"] = "☘️",
+      ["u"] = "🌻",
+      ["v"] = "🎏",
+      ["w"] = "🛸",
+      ["x"] = "🌡️",
+      ["y"] = "🦈",
+      ["z"] = "📡",
+      ["{"] = "🍕",
+      ["|"] = "🍆",
+      ["}"] = "🦂",
+      ["~"] = "🏦",
+   },
+}
+
+
+function FindIndex(Word:string, Letter:string)
+ for i = 1, #Word, 1 do
+   if string.sub(Word, i, i) == Letter then
+      return i
+   end
+ end
+end
+function EncodeSymbol(symbol,type,addon,firstlt)
+ if addon == nil then
+    addon = ""
+ end
+ if firstlt == nil then
+    firstlt = "" 
+ end
+ return firstlt..""..Symbols[type][symbol]..""..addon
+end
+function Encode(msg,type,addon,firstlt)
+ if addon == nil then
+    if type == "Caesar" or type == "Atbash" or type == "ROT-13" then
+       addon = ""
+    else
+       addon = " "
+    end
+ end
+ if firstlt == nil then
+    firstlt = "" 
+ end
+ local r = ""
+ local m = msg
+ repeat
+   if m ~= "" then
+      if Symbols[type][m:sub(1,1)] then
+         s = firstlt..""..Symbols[type][m:sub(1,1)]..""..addon
+         r = r..""..s
+      end
+      m = m:sub(2, string.len(m))
+   end
+ until m == ""
+ return r
+end
+function DecodeSymbol(symbol,type,addon,firstlt)
+ if addon == nil then
+    addon = ""
+ end
+ if firstlt == nil then
+    firstlt = "" 
+ end
+ for key, value in pairs(Symbols[type]) do
+   if value == symbol then
+      return firstlt..""..key..""..addon
+   end
+ end
+end
+function Decode(msg,type,addon,firstlt)
+ if addon == nil then
+    addon = ""
+ end
+ if firstlt == nil then
+    firstlt = "" 
+ end
+ local r = ""
+ local m = msg
+ local num = 0
+ if m:sub(string.len(m),string.len(m)) ~= " " then
+    m = m.." "
+ end
+ repeat
+   if m ~= "" then
+      if type == "Caesar" or type == "Atbash" or type == "ROT-13" then
+         for key, value in pairs(Symbols[type]) do
+           if value == m:sub(1,1) then
+              r = r..""..key
+           end
+         end
+         m = m:sub(2, string.len(m))
+      else
+         num = FindIndex(m, " ")
+         for key, value in pairs(Symbols[type]) do
+           if value == m:sub(1, num - 1) then
+              r = r..""..key
+           end
+         end
+         m = m:sub(num + 1, string.len(m))
+         num = 0
+      end
+   end
+ until m == ""
+ return r
+end
