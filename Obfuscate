@@ -1,9 +1,0 @@
---[[ 
- OOO     BBBBB     FFFFF     GGGGG    EEEEE    N   N    EEEEE    RRRRR    AAAAA     L     
-O   O    B    B    F         G        E        NN  N    E        R    R   A   A     L     
-O   O    BBBBB     FFFF      G  GG    EEEE     N N N    EEEE     RRRRR    AAAAA     L     
-O   O    B    B    F         G   G    E        N  NN    E        R  R     A   A     L     
- OOO     BBBBB     F          GGGG    EEEEE    N   N    EEEEE    R   R    A   A     LLLLL
-]]--
-
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Generallua/Obfuscate/refs/heads/main/O"))()
