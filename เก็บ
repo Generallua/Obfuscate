@@ -1,11 +1,1 @@
-if _G.Getscript == "webhook" then
-   print("555")
-elseif _G.Getscript == "hydroix" then
-print("555")
-elseif _G.Getscript == "rspy" then
-print("555")
-elseif _G.Getscript == "webhookmoon" then
-print("555")
-elseif _G.Getscript == "032" then
-print("555")
-end
+
