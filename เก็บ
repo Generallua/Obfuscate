@@ -1,3 +1,7 @@
 function a1()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Generallua/General-Script-/refs/heads/main/Iiii"))()
 end
+
+function b()
+    print("555")
+end
