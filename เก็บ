@@ -2,6 +2,6 @@ function a1()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Generallua/General-Script-/refs/heads/main/Iiii"))()
 end
 
-function b()
-    print("555")
+function dex()
+    loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Dex-mobile-by-Redz-25499"))()
 end
