@@ -5,3 +5,7 @@ end
 function dex()
     loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Dex-mobile-by-Redz-25499"))()
 end
+
+function T()
+print("44")
+end
