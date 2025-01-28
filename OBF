@@ -6,6 +6,6 @@ function dex()
     loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Dex-mobile-by-Redz-25499"))()
 end
 
-function T()
-print("44")
+function tp()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Generallua/Script-/refs/heads/main/Teleport%20GUI"))()
 end
