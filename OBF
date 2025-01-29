@@ -9,3 +9,7 @@ end
 function tp()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Generallua/Script-/refs/heads/main/Teleport%20GUI"))()
 end
+
+function rspy()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Turtle-Brand/Turtle-Spy/main/source.lua", true))()
+end
