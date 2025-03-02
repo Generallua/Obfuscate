@@ -1,3 +1,5 @@
+print("game tool")
+
 function fly()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/Vehicle%20Fly%20Gui'))()
 end
@@ -13,3 +15,4 @@ end
 function rspy()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Turtle-Brand/Turtle-Spy/main/source.lua", true))()
 end
+
