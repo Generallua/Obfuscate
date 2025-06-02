@@ -16,3 +16,58 @@ function rspy()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Turtle-Brand/Turtle-Spy/main/source.lua", true))()
 end
 
+function car()
+-- สร้าง GUI
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local TextBox = Instance.new("TextBox")
+local PushButton = Instance.new("TextButton")
+
+-- ตั้งค่า GUI
+ScreenGui.Parent = game.CoreGui
+
+Frame.Parent = ScreenGui
+Frame.Size = UDim2.new(0, 200, 0, 100)
+Frame.Position = UDim2.new(0.902, 0, 0.464, 0) -- ตำแหน่งที่กำหนด
+Frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+
+TextBox.Parent = Frame
+TextBox.Size = UDim2.new(0, 180, 0, 30)
+TextBox.Position = UDim2.new(0, 10, 0, 10)
+TextBox.PlaceholderText = "ใส่แรงโน้มถ่วง"
+TextBox.Text = "1000" -- แรงเริ่มต้น
+TextBox.TextScaled = true
+
+PushButton.Parent = Frame
+PushButton.Size = UDim2.new(0, 180, 0, 30)
+PushButton.Position = UDim2.new(0, 10, 0, 50)
+PushButton.Text = "ผลักตัวเรา"
+PushButton.BackgroundColor3 = Color3.fromRGB(100, 100, 255)
+PushButton.TextScaled = true
+
+-- ฟังก์ชันการผลักด้วยแรงโน้มถ่วง (ไม่ส่งผลต่อแกน Y)
+local isPushing = false
+
+PushButton.MouseButton1Down:Connect(function()
+    isPushing = true
+    local gravityForce = tonumber(TextBox.Text) or 1000
+    while isPushing do
+        local character = game.Players.LocalPlayer.Character
+        if character and character:FindFirstChild("HumanoidRootPart") then
+            local hrp = character.HumanoidRootPart
+            -- ใช้แรงโน้มถ่วงในการผลัก (ไม่เปลี่ยนแกน Y)
+            local currentVelocity = hrp.AssemblyLinearVelocity
+            hrp.AssemblyLinearVelocity = Vector3.new(
+                currentVelocity.X + hrp.CFrame.LookVector.X * gravityForce,
+                currentVelocity.Y, -- คงค่าความเร็วในแกน Y เดิม
+                currentVelocity.Z + hrp.CFrame.LookVector.Z * gravityForce
+            )
+        end
+        task.wait(0.1)
+    end
+end)
+
+PushButton.MouseButton1Up:Connect(function()
+    isPushing = false
+end)
+end
