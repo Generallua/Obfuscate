@@ -16,3 +16,6 @@ end
 function ควย()
 loadstring(game:HttpGet("https://protected-roblox-scripts.onrender.com/809d4d7da06b3d272a5a9dc9295656d0"))()
 end
+function lux()
+
+end
