@@ -17,5 +17,46 @@ function ควย()
 loadstring(game:HttpGet("https://protected-roblox-scripts.onrender.com/809d4d7da06b3d272a5a9dc9295656d0"))()
 end
 function lux()
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = game:GetService("CoreGui")  
 
+
+local button = Instance.new("TextButton")
+button.Size = UDim2.new(0, 30, 0, 15) 
+button.Position = UDim2.new(1, -105, 1, -20) 
+button.Text = "GET"
+button.TextSize = 8  
+button.TextColor3 = Color3.fromRGB(255, 255, 255)  
+button.BackgroundColor3 = Color3.fromRGB(0, 100, 255)  
+button.Parent = screenGui
+
+
+button.MouseButton1Click:Connect(function()
+    local LP = game:GetService("Players").LocalPlayer
+
+-- Save tool function
+local function saveTool()
+    for _, v in pairs(LP.Character:GetDescendants()) do
+        if v:IsA("Tool") then
+            v.Parent = LP
+        end
+    end
+end
+
+-- Load tool function
+local function loadTool()
+    for _, v in pairs(LP:GetChildren()) do
+        if v:IsA("Tool") then
+            v.Parent = LP.Backpack
+        end
+    end
+end
+
+-- Check and execute
+if LP.Character:FindFirstChildOfClass("Tool") then
+    saveTool() -- ถ้าผู้เล่นถือเครื่องมืออยู่ จะเก็บเครื่องมือนั้น
+else
+    loadTool() -- ถ้าผู้เล่นไม่ได้ถือเครื่องมือ จะโหลดเครื่องมือทั้งหมดที่เก็บไว้
+end
+end)
 end
