@@ -1,1 +1,0 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Generallua/Obfuscate/refs/heads/main/1"))()
