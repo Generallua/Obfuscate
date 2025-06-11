@@ -13,6 +13,79 @@ game:service'Players'.LocalPlayer.Idled:connect(function()
     bb:CaptureController()
     bb:ClickButton2(Vector2.new())
 end)
+local Player = game.Players.LocalPlayer
+local RunService = game:GetService("RunService")
+local CoreGui = game:GetService("CoreGui")
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "FPSAndPositionGui"
+ScreenGui.Parent = CoreGui
+
+local InfoLabel = Instance.new("TextLabel", ScreenGui)
+InfoLabel.Size = UDim2.new(0, 250, 0, 70)
+InfoLabel.Position = UDim2.new(1, -120, 0, -30)
+InfoLabel.BackgroundTransparency = 1
+InfoLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+InfoLabel.Font = Enum.Font.SourceSans
+InfoLabel.TextSize = 22
+InfoLabel.TextXAlignment = Enum.TextXAlignment.Left
+InfoLabel.TextYAlignment = Enum.TextYAlignment.Top
+InfoLabel.RichText = true
+
+local lastTime = tick()
+local frames = 0
+local fps = 0
+local playTime = 0
+local shadeOffset = 0
+
+local shades = {}
+for i = 0, 20 do
+	local val = 255 - math.floor(i * (255 / 20))
+	table.insert(shades, string.format("#%02X%02X%02X", val, val, val))
+end
+
+RunService.RenderStepped:Connect(function()
+	frames += 1
+	local now = tick()
+	if now - lastTime >= 1 then
+		fps = frames
+		frames = 0
+		lastTime = now
+	end
+
+	playTime += RunService.RenderStepped:Wait()
+	local hours = math.floor(playTime / 3600)
+	local minutes = math.floor((playTime % 3600) / 60)
+	local seconds = math.floor(playTime % 60)
+	local timeText = string.format("Time: %02d:%02d:%02d", hours, minutes, seconds)
+
+	local char = Player.Character
+	local pos = char and char:FindFirstChild("HumanoidRootPart") and char.HumanoidRootPart.Position or Vector3.new(0, 0, 0)
+
+	local textData = "FPS: " .. fps ..
+		"\nX: " .. math.floor(pos.X) ..
+		" Y: " .. math.floor(pos.Y) ..
+		" Z: " .. math.floor(pos.Z) ..
+		"\n" .. timeText
+
+	local rotatedShades = {}
+	for i = 1, #shades do
+		rotatedShades[i] = shades[((i + shadeOffset - 1) % #shades) + 1]
+	end
+	shadeOffset = (shadeOffset + 1) % #shades
+
+	local result = ""
+	local index = 1
+	for i = 1, #textData do
+		local char = textData:sub(i, i)
+		local color = rotatedShades[index]
+		result ..= string.format('<font color="%s">%s</font>', color, char)
+		index += 1
+		if index > #rotatedShades then index = 1 end
+	end
+
+	InfoLabel.Text = result
+end)
 end
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Generallua/Obfuscate/refs/heads/main/Function"))()
