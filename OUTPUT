@@ -1,3 +1,10 @@
+local CoreGui = game:GetService("StarterGui")
+
+CoreGui:SetCore("SendNotification", {
+    Title = "Anti AFK",
+    Text = "Success!",
+    Duration = 2,
+})
 wait(0.5)
 local bb = game:service'VirtualUser'
 game:service'Players'.LocalPlayer.Idled:connect(function()
