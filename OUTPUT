@@ -1,4 +1,6 @@
-local CoreGui = game:GetService("StarterGui")
+if not _G.ScriptExecuted then
+    _G.ScriptExecuted = true
+    local CoreGui = game:GetService("StarterGui")
 
 CoreGui:SetCore("SendNotification", {
     Title = "Anti AFK",
@@ -11,4 +13,6 @@ game:service'Players'.LocalPlayer.Idled:connect(function()
     bb:CaptureController()
     bb:ClickButton2(Vector2.new())
 end)
+end
+
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Generallua/Obfuscate/refs/heads/main/Function"))()
