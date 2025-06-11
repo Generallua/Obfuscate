@@ -11,30 +11,4 @@ game:service'Players'.LocalPlayer.Idled:connect(function()
     bb:CaptureController()
     bb:ClickButton2(Vector2.new())
 end)
-function fly()
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/Vehicle%20Fly%20Gui'))()
-end
-
-function dex()
-    loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Dex-mobile-by-Redz-25499"))()
-end
-
-function tp()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Generallua/Script-/refs/heads/main/Teleport%20GUI"))()
-end
-
-function rspy()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Turtle-Brand/Turtle-Spy/main/source.lua", true))()
-end
-function hydro()
-
-local owner = "Hosvile"
-local branch = "revision"
-
-local function webImport(file)
-    return loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/%s/MC-Hydroxide/%s/%s.lua"):format(owner, branch, file)), file .. '.lua')()
-end
-
-webImport("init")
-webImport("ui/main")
-end
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Generallua/Obfuscate/refs/heads/main/Function"))()
