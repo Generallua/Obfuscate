@@ -146,3 +146,9 @@ end
 webImport("init")
 webImport("ui/main")
 end
+function esp()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Generallua/-/refs/heads/main/Esp"))()
+end
+function espoff()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Generallua/-/refs/heads/main/EspOff"))()
+end
