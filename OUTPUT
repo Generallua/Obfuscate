@@ -87,5 +87,4 @@ RunService.RenderStepped:Connect(function()
 end)
 end
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Generallua/Obfuscate/refs/heads/main/Webhook"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Generallua/Obfuscate/refs/heads/main/Function"))()
