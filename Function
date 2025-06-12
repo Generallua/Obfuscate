@@ -1,28 +1,3 @@
-local soundId = "rbxassetid://144117948"
-local SoundService = game:GetService("SoundService")
-
--- สร้างเสียง
-local sound = Instance.new("Sound")
-sound.SoundId = soundId
-sound.Volume = 1
-sound.Looped = false
-sound.Parent = SoundService
-
--- ฟังก์ชันแปลงเวลาเป็นเวลาไทย
-local function isMidnightThailand()
-	local utc = os.date("!*t") -- เวลาตาม UTC
-	local thailandHour = (utc.hour + 7) % 24 -- เพิ่ม 7 ชั่วโมงให้เป็นเวลาไทย
-	return thailandHour == 0 and utc.min == 0
-end
-
--- ตรวจสอบทุกวินาที
-while true do
-	if isMidnightThailand() then
-		sound:Play()
-		break
-	end
-	wait(1)
-end
 
 
 function fly()
