@@ -1,7 +1,6 @@
 if not _G.ScriptExecuted then
     _G.ScriptExecuted = true
     local CoreGui = game:GetService("StarterGui")
-
 CoreGui:SetCore("SendNotification", {
     Title = "Anti AFK",
     Text = "Success!",
