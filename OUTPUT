@@ -25,7 +25,7 @@ ScreenGui.Name = "FPSAndPositionGui"
 ScreenGui.Parent = CoreGui
 
 local InfoLabel = Instance.new("TextLabel", ScreenGui)
-InfoLabel.Size = UDim2.new(0, -200, 0, 70)
+InfoLabel.Size = UDim2.new(0, -500, 0, 70)
 InfoLabel.Position = UDim2.new(1, -700, 0, -5)
 InfoLabel.BackgroundTransparency = 1
 InfoLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
